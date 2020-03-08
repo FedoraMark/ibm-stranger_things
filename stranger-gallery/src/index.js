@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 const breakpoints = {
+	xs: 0,
 	sm: 576,
 	md: 769,
 	lg: 992,

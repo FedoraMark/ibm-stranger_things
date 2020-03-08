@@ -14,12 +14,20 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 }
 
 // SCSS
+body {
+  min-width: 360px;
+}
+
 .invisible {
   visibility: hidden;
 }
 
 .dotted {
   border-bottom: 1px dotted currentColor;
+}
+
+.centerCell {
+  text-align: center;
 }
 
 .titleBar {
@@ -116,6 +124,8 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 
   .section {
     .sectionTitle {
+      position: relative;
+
       padding-top: 4rem;
       margin: 0 0 2rem;
 
@@ -123,6 +133,20 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
       font-size: xx-large;
 
       text-transform: uppercase;
+
+      background: #fff;
+      &:after {
+        position: absolute;
+        bottom: -0.25rem;
+        left: 0;
+
+        width: 100%;
+        height: 1px;
+
+        content: "";
+
+        border-bottom: 1px solid black;
+      }
     }
   }
 
@@ -135,8 +159,8 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
       }
 
       .logo {
-        float: left;
-        margin-right: 3rem;
+        float: right;
+        margin-left: 3rem;
       }
 
       .description {
@@ -203,6 +227,8 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 
   .episodes {
     .episodeTable {
+      margin: 0;
+
       .sortable {
         &:hover,
         &:focus {
@@ -211,7 +237,7 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
       }
 
       .sortArrow {
-        margin-right: 0.5rem;
+        margin-left: 0.5rem;
       }
 
       .season {
@@ -225,8 +251,12 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 @media all and (max-width: 1199px) {
   .contentWrapper {
     max-width: 992px;
-  }
 
+    .inspiration .insp-row .quote .textWrapper .text,
+    .inspiration .insp-row .quote .author {
+      font-size: larger;
+    }
+  }
   .titleBar {
     .title {
       font-size: xx-large;
@@ -237,6 +267,24 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 @media all and (max-width: 991px) {
   .contentWrapper {
     max-width: 769px;
+
+    .inspiration .insp-row {
+      &.row2 {
+        flex-direction: column-reverse;
+
+        justify-content: center;
+
+        .quote {
+          width: 100%;
+          margin: 2rem 0 0;
+
+          .textWrapper .text,
+          .author {
+            font-size: x-large;
+          }
+        }
+      }
+    }
   }
 
   .titleBar {
@@ -249,6 +297,14 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 @media all and (max-width: 768px) {
   .contentWrapper {
     max-width: 576px;
+
+    .inspiration .insp-row {
+      .logo {
+        float: none;
+        width: 100%;
+        margin: 0 0 2rem;
+      }
+    }
   }
 
   .titleBar {
@@ -260,5 +316,24 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 
 @media all and (max-width: 575px) {
   .contentWrapper {
+    padding: 1rem 2rem;
+
+    .inspiration .insp-row {
+      .logo {
+        float: none;
+        width: 100%;
+        margin: 0 0 2rem;
+      }
+    }
+  }
+
+  .titleBar {
+    padding: 1rem;
+
+    .title {
+      margin-right: 1rem;
+
+      font-size: medium;
+    }
   }
 }

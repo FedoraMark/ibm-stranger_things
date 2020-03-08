@@ -97,6 +97,34 @@ class App extends React.Component {
     );
   };
 
+  render_responsiveVideo = () => {
+    return (
+      <Media>
+        {({ breakpoints, currentBreakpoint }) => (
+          <iframe
+            title="embed"
+            className="video"
+            src={this.state.data["video-embed"]}
+            width={
+              (breakpoints[currentBreakpoint] === breakpoints.xl && "566") ||
+              (breakpoints[currentBreakpoint] === breakpoints.lg && "424") ||
+              (breakpoints[currentBreakpoint] === breakpoints.md && "673") ||
+              (breakpoints[currentBreakpoint] === breakpoints.sm && "480")
+            }
+            height={
+              (breakpoints[currentBreakpoint] === breakpoints.xl && "320") ||
+              (breakpoints[currentBreakpoint] === breakpoints.lg && "235") ||
+              (breakpoints[currentBreakpoint] === breakpoints.md && "380") ||
+              (breakpoints[currentBreakpoint] === breakpoints.sm && "270")
+            }
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        )}
+      </Media>
+    );
+  };
+
   render_locationList = () => {
     return (
       <div className="locationWrapper">
@@ -158,57 +186,66 @@ class App extends React.Component {
     }
 
     return (
-      <Table
-        className="episodeTable"
-        striped
-        bordered
-        hover
-        responsive
-        variant="dark"
-      >
-        <thead>
-          <tr>
-            <th className="season">Season</th>
-            <th
-              className="nameHeader sortable"
-              onClick={e => {
-                this.setSort(EP_SORT);
-              }}
-            >
-              {this.state.episodeSort === EP_SORT ? (
-                this.render_sortArrow()
-              ) : (
-                <span className="sortArrow invisible">&#9660;</span>
-              )}
-              <span className="dotted">Name</span>
-            </th>
-            <th
-              className="ratingHeader sortable"
-              onClick={e => {
-                this.setSort(RT_SORT);
-              }}
-            >
-              {this.state.episodeSort === RT_SORT ? (
-                this.render_sortArrow()
-              ) : (
-                <span className="sortArrow invisible">&#9660;</span>
-              )}
-              <span className="dotted">Rating</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedEpisodeData.map((episode, index) => {
-            return (
-              <tr key={episode.name}>
-                <td className="season">{episode.season}</td>
-                <td>"{episode.name}"</td>
-                <td>{episode.rating}</td>
+      <Media>
+        {({ breakpoints, currentBreakpoint }) => (
+          <Table
+            className="episodeTable"
+            striped
+            bordered
+            hover
+            responsive
+            variant="dark"
+          >
+            <thead>
+              <tr>
+                <th className="season">
+                  {breakpoints[currentBreakpoint] > breakpoints.xs
+                    ? "Season"
+                    : "S"}
+                </th>
+                <th
+                  className="nameHeader sortable"
+                  onClick={e => {
+                    this.setSort(EP_SORT);
+                  }}
+                >
+                  <span className="dotted">Name</span>
+                  {this.state.episodeSort === EP_SORT ? (
+                    this.render_sortArrow()
+                  ) : (
+                    <span className="sortArrow invisible">&#9660;</span> // used for consistent spacing
+                  )}
+                </th>
+                <th
+                  className="ratingHeader sortable centerCell"
+                  onClick={e => {
+                    this.setSort(RT_SORT);
+                  }}
+                >
+                  <span className="sortArrow invisible">&#9660;</span>
+                  <span className="dotted">Rating</span>
+                  {this.state.episodeSort === RT_SORT ? (
+                    this.render_sortArrow()
+                  ) : (
+                    <span className="sortArrow invisible">&#9660;</span> // used for consistent spacing
+                  )}
+                </th>
               </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+            </thead>
+            <tbody>
+              {sortedEpisodeData.map((episode, index) => {
+                return (
+                  <tr key={episode.name}>
+                    <td className="season">{episode.season}</td>
+                    <td>"{episode.name}"</td>
+                    <td className="centerCell">{episode.rating}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        )}
+      </Media>
     );
   };
 
@@ -266,15 +303,7 @@ class App extends React.Component {
                 </p>
               </div>
 
-              <iframe
-                title="embed"
-                className="video"
-                src={this.state.data["video-embed"]}
-                width="640"
-                height="400"
-                frameBorder="0"
-                allowFullScreen
-              ></iframe>
+              {this.render_responsiveVideo()}
             </div>
           </div>
 

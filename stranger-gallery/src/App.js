@@ -1,6 +1,7 @@
 import React from "react";
 import { DropdownButton, Dropdown, Table } from "react-bootstrap";
 import { Carousel } from "react-responsive-carousel";
+import { Media } from "react-breakpoints";
 import _ from "lodash";
 
 import "./App.scss";
@@ -57,22 +58,31 @@ class App extends React.Component {
       <div className="titleBar">
         <h1 className="title">IBM RTP Stranger Things Fanclub</h1>
 
-        <DropdownButton variant="danger" title="Language" alignRight>
-          <Dropdown.Item
-            eventKey="1"
-            active={this.state.language === ENG}
-            onSelect={e => this.setLanguage(ENG, engData)}
-          >
-            {ENG}
-          </Dropdown.Item>
-          <Dropdown.Item
-            eventKey="2"
-            active={this.state.language === PIG}
-            onSelect={e => this.setLanguage(PIG, pigData)}
-          >
-            {PIG}
-          </Dropdown.Item>
-        </DropdownButton>
+        <Media>
+          {({ breakpoints, currentBreakpoint }) => (
+            <DropdownButton
+              variant="danger"
+              size={breakpoints[currentBreakpoint] > breakpoints.md ? "" : "sm"}
+              title="Language"
+              alignRight
+            >
+              <Dropdown.Item
+                eventKey="1"
+                active={this.state.language === ENG}
+                onSelect={e => this.setLanguage(ENG, engData)}
+              >
+                {ENG}
+              </Dropdown.Item>
+              <Dropdown.Item
+                eventKey="2"
+                active={this.state.language === PIG}
+                onSelect={e => this.setLanguage(PIG, pigData)}
+              >
+                {PIG}
+              </Dropdown.Item>
+            </DropdownButton>
+          )}
+        </Media>
       </div>
     );
   };

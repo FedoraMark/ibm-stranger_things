@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownButton, Dropdown } from "react-bootstrap";
+import { DropdownButton, Dropdown, Table } from "react-bootstrap";
 import { Carousel } from "react-responsive-carousel";
 import _ from "lodash";
 
@@ -13,12 +13,42 @@ import stLogo from "./images/stranger-things_raw.png";
 let ENG = "English";
 let PIG = "igPay atinLay";
 
+let EP_SORT = "episodes";
+let RT_SORT = "rating";
+
 class App extends React.Component {
-  state = { language: ENG, data: engData };
+  state = {
+    language: ENG,
+    data: engData,
+    episodeSort: RT_SORT,
+    isAscending: false
+  };
 
   // FUNCTIONS
   setLanguage = (newLanguage, newData) => {
     this.setState({ language: newLanguage, data: newData });
+  };
+
+  setSort = column => {
+    if (this.state.episodeSort === column) {
+      this.setState({ isAscending: !this.state.isAscending });
+      return;
+    }
+
+    this.setState({ episodeSort: column, isAscending: column === EP_SORT });
+  };
+
+  convertToSortName = string => {
+    return string
+      .replace("One", "1")
+      .replace("Two", "2")
+      .replace("Three", "3")
+      .replace("Four", "4")
+      .replace("Five", "5")
+      .replace("Six", "6")
+      .replace("Seven", "7")
+      .replace("Eight", "8")
+      .replace("Nine", "9");
   };
 
   // RENDER PARTS
@@ -63,7 +93,7 @@ class App extends React.Component {
         <h4>Locations include:</h4>
         <ul className="locations">
           {_.map(this.state.data.locations, location => {
-            return <li>{location}</li>;
+            return <li key={location}>{location}</li>;
           })}
         </ul>
       </div>
@@ -80,7 +110,7 @@ class App extends React.Component {
       >
         {_.map(this.state.data.gallery, slide => {
           return (
-            <div>
+            <div key={slide.src}>
               <img src={slide.src} alt={slide.text} />
               <p className="legend">{slide.text}</p>
             </div>
@@ -90,9 +120,102 @@ class App extends React.Component {
     );
   };
 
+  render_episodeTable = () => {
+    var sortedEpisodeData = {};
+
+    if (this.state.episodeSort === RT_SORT) {
+      // rating sort
+      sortedEpisodeData = _.sortBy(this.state.data["episode-list"], [
+        o => {
+          return o.rating;
+        }
+      ]);
+    } else if (this.state.episodeSort === EP_SORT) {
+      // numeric episode+season sort
+      _.each(this.state.data["episode-list"], (value, key) => {
+        sortedEpisodeData[key] = {
+          ...value,
+          sortName: this.convertToSortName(value.name)
+        };
+      });
+
+      sortedEpisodeData = _.sortBy(sortedEpisodeData, ["season", "sortName"]);
+    }
+
+    // if descending
+    if (!this.state.isAscending) {
+      sortedEpisodeData = _.reverse(sortedEpisodeData);
+    }
+
+    return (
+      <Table
+        className="episodeTable"
+        striped
+        bordered
+        hover
+        responsive
+        variant="dark"
+      >
+        <thead>
+          <tr>
+            <th className="season">Season</th>
+            <th
+              className="nameHeader sortable"
+              onClick={e => {
+                this.setSort(EP_SORT);
+              }}
+            >
+              {this.state.episodeSort === EP_SORT ? (
+                this.render_sortArrow()
+              ) : (
+                <span className="sortArrow invisible">&#9660;</span>
+              )}
+              Name
+            </th>
+            <th
+              className="ratingHeader sortable"
+              onClick={e => {
+                this.setSort(RT_SORT);
+              }}
+            >
+              {this.state.episodeSort === RT_SORT ? (
+                this.render_sortArrow()
+              ) : (
+                <span className="sortArrow invisible">&#9660;</span>
+              )}
+              Rating
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedEpisodeData.map((episode, index) => {
+            return (
+              <tr key={episode.name}>
+                <td className="season">{episode.season}</td>
+                <td>"{episode.name}"</td>
+                <td>{episode.rating}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    );
+  };
+
+  render_sortArrow = () => {
+    var arrow = "";
+    switch (this.state.isAscending) {
+      case true:
+        return <span className="sortArrow">&#9650;</span>;
+      case false:
+        return <span className="sortArrow">&#9660;</span>;
+      default:
+        return <span className="sortArrow invisible">&#9660;</span>;
+    }
+  };
+
   // MAIN RENDER
   render() {
-    console.log(this.state.data);
     return (
       <div>
         {this.render_titleBar()}
@@ -140,7 +263,7 @@ class App extends React.Component {
                 width="640"
                 height="400"
                 frameBorder="0"
-                allowFullScreen="true"
+                allowFullScreen
               ></iframe>
             </div>
           </div>
@@ -156,8 +279,12 @@ class App extends React.Component {
 
           <div className="section episodes" id="episodes">
             <h2 className="sectionTitle">Episodes</h2>
+
+            {this.render_episodeTable()}
           </div>
         </div>
+
+        <footer className="footer"></footer>
       </div>
     );
   }

@@ -14,6 +14,10 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 }
 
 // SCSS
+.invisible {
+  visibility: hidden;
+}
+
 .contentWrapper {
   max-width: 1400px;
   margin: 0 auto;
@@ -73,6 +77,15 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
   }
 }
 
+.footer {
+  width: 100%;
+  height: 1rem;
+  padding: 1rem 2.5rem;
+  margin-top: 3em;
+
+  background-color: $background-dark;
+}
+
 .contentWrapper {
   padding: 1rem 3rem;
 
@@ -116,7 +129,7 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
       @include flex(center, space-between);
 
       &.row1 {
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
       }
 
       .logo {
@@ -177,7 +190,7 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
       @include flex(flex-start, space-between);
 
       .locationWrapper {
-        width: 2000px; // TO BE FIXED
+        width: 2000px; // TO BE ADDRESSED
       }
 
       .carouselWrapper {
@@ -185,4 +198,34 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
       }
     }
   }
+
+  .episodes {
+    .episodeTable {
+      .sortable {
+        &:hover,
+        &:focus {
+          cursor: pointer;
+        }
+      }
+
+      .sortArrow {
+        margin-right: 0.5rem;
+      }
+
+      .season {
+        text-align: center;
+      }
+    }
+  }
+}
+
+// RESPONSIVE BREAKPOINTS
+//@media all and (max-width: 1690px) { }
+@media all and (max-width: 1280px) {
+}
+@media all and (max-width: 980px) {
+}
+@media all and (max-width: 736px) {
+}
+@media all and (max-width: 480px) {
 }

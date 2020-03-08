@@ -18,6 +18,10 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
   visibility: hidden;
 }
 
+.dotted {
+  border-bottom: 1px dotted currentColor;
+}
+
 .contentWrapper {
   max-width: 1400px;
   margin: 0 auto;
@@ -47,6 +51,7 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
   position: sticky;
   position: -webkit-sticky; /* Safari */
   top: 0;
+  z-index: 10;
 
   padding: 1rem 3rem;
 
@@ -220,12 +225,11 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 }
 
 // RESPONSIVE BREAKPOINTS
-//@media all and (max-width: 1690px) { }
-@media all and (max-width: 1280px) {
+@media all and (max-width: 1199px) {
 }
-@media all and (max-width: 980px) {
+@media all and (max-width: 991px) {
 }
-@media all and (max-width: 736px) {
+@media all and (max-width: 768px) {
 }
-@media all and (max-width: 480px) {
+@media all and (max-width: 575px) {
 }

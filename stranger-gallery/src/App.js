@@ -20,8 +20,8 @@ class App extends React.Component {
   state = {
     language: ENG,
     data: engData,
-    episodeSort: RT_SORT,
-    isAscending: false
+    episodeSort: EP_SORT,
+    isAscending: true
   };
 
   // FUNCTIONS
@@ -170,7 +170,7 @@ class App extends React.Component {
               ) : (
                 <span className="sortArrow invisible">&#9660;</span>
               )}
-              Name
+              <span className="dotted">Name</span>
             </th>
             <th
               className="ratingHeader sortable"
@@ -183,7 +183,7 @@ class App extends React.Component {
               ) : (
                 <span className="sortArrow invisible">&#9660;</span>
               )}
-              Rating
+              <span className="dotted">Rating</span>
             </th>
           </tr>
         </thead>

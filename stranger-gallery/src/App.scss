@@ -1,0 +1,122 @@
+// VARIABLES
+$background-dark: #1f2123;
+$red-color: #dc3545;
+$fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
+
+// MIXINS
+@mixin flex($align: center, $justify: center) {
+  display: flex;
+
+  align-items: $align;
+  justify-content: $justify;
+}
+
+// SCSS
+.titleBar {
+  width: 100%;
+  padding: 1rem 2.5rem;
+
+  background-color: $background-dark;
+
+  @include flex(center, space-between);
+
+  .title {
+    margin: 0;
+
+    font-family: $fontFamily-logo;
+
+    letter-spacing: -2px;
+    text-transform: uppercase;
+
+    color: $red-color;
+  }
+}
+
+.navBar {
+  position: sticky;
+  position: -webkit-sticky; /* Safari */
+  top: 0;
+
+  padding: 1rem 3rem;
+
+  background: #fff;
+
+  @include flex(center, flex-end);
+
+  .navBox {
+    &:not(:first-of-type) {
+      padding-left: 1rem;
+      margin-left: 1rem;
+
+      border-left: 2px solid currentColor;
+    }
+
+    .navLink {
+      font-size: larger;
+
+      text-decoration: none;
+
+      color: #000;
+
+      &:hover,
+      &:focus {
+        color: $red-color;
+      }
+    }
+  }
+}
+
+.contentWrapper {
+  padding: 1rem 3rem;
+
+  .heading {
+    padding: 0;
+    margin: 0 0 3rem;
+
+    font-family: $fontFamily-logo;
+
+    text-align: center;
+
+    @include flex();
+  }
+
+  .sectionTitle {
+    margin: 0 0 2rem;
+
+    font-family: $fontFamily-logo;
+    font-size: xx-large;
+
+    text-transform: uppercase;
+  }
+
+  .inspiration {
+    .snippet {
+      width: 100%;
+      margin: 4rem 0;
+
+      font-size: x-large;
+      font-style: italic;
+
+      text-align: center;
+
+      color: $red-color;
+    }
+
+    .insp-row {
+      @include flex(center, space-between);
+
+      .logo {
+        margin-right: 3rem;
+
+        @include flex(center, flex-start);
+      }
+
+      .description {
+        padding: 0;
+        margin: 0 0 1rem;
+
+        font-size: larger;
+      }
+    }
+  }
+}

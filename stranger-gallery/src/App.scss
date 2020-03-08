@@ -1,6 +1,8 @@
 // VARIABLES
 $background-dark: #1f2123;
 $red-color: #dc3545;
+$lighten-red-color: lighten(#dc3545, 30%);
+$nav-color: #666;
 $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 
 // MIXINS
@@ -12,6 +14,11 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 }
 
 // SCSS
+.contentWrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .titleBar {
   width: 100%;
   padding: 1rem 2.5rem;
@@ -48,7 +55,7 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
       padding-left: 1rem;
       margin-left: 1rem;
 
-      border-left: 2px solid currentColor;
+      border-left: 2px solid $nav-color;
     }
 
     .navLink {
@@ -56,7 +63,7 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 
       text-decoration: none;
 
-      color: #000;
+      color: $nav-color;
 
       &:hover,
       &:focus {
@@ -71,7 +78,7 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
 
   .heading {
     padding: 0;
-    margin: 0 0 3rem;
+    margin: 0 0 1rem;
 
     font-family: $fontFamily-logo;
 
@@ -80,35 +87,41 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
     @include flex();
   }
 
-  .sectionTitle {
+  .snippet {
+    width: 100%;
     margin: 0 0 2rem;
 
-    font-family: $fontFamily-logo;
-    font-size: xx-large;
+    font-size: x-large;
+    font-style: italic;
 
-    text-transform: uppercase;
+    text-align: center;
+
+    color: $red-color;
+  }
+
+  .section {
+    .sectionTitle {
+      padding-top: 4rem;
+      margin: 0 0 2rem;
+
+      font-family: $fontFamily-logo;
+      font-size: xx-large;
+
+      text-transform: uppercase;
+    }
   }
 
   .inspiration {
-    .snippet {
-      width: 100%;
-      margin: 4rem 0;
-
-      font-size: x-large;
-      font-style: italic;
-
-      text-align: center;
-
-      color: $red-color;
-    }
-
     .insp-row {
       @include flex(center, space-between);
 
-      .logo {
-        margin-right: 3rem;
+      &.row1 {
+        margin-bottom: 1rem;
+      }
 
-        @include flex(center, flex-start);
+      .logo {
+        float: left;
+        margin-right: 3rem;
       }
 
       .description {
@@ -116,6 +129,59 @@ $fontFamily-logo: Benguiat Bold, Helvetica, Arial, sans-serif;
         margin: 0 0 1rem;
 
         font-size: larger;
+      }
+
+      .quote {
+        width: 50%;
+        margin-right: 3rem;
+        flex-direction: column;
+
+        color: #666;
+
+        @include flex();
+
+        .textWrapper {
+          @include flex();
+
+          .quoteMarks {
+            font-size: xxx-large;
+
+            color: $lighten-red-color;
+          }
+
+          .text {
+            margin: 0 1rem;
+
+            font-size: x-large;
+
+            text-align: center;
+          }
+        }
+
+        .author {
+          margin: 0.5rem 0.5rem 0 0;
+
+          font-size: x-large;
+
+          align-self: flex-end;
+        }
+      }
+
+      .video {
+      }
+    }
+  }
+
+  .gallery {
+    .galleryWrapper {
+      @include flex(flex-start, space-between);
+
+      .locationWrapper {
+        width: 2000px; // TO BE FIXED
+      }
+
+      .carouselWrapper {
+        @include flex(flex-start, flex-end);
       }
     }
   }

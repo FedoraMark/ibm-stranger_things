@@ -109,13 +109,15 @@ class App extends React.Component {
               (breakpoints[currentBreakpoint] === breakpoints.xl && "566") ||
               (breakpoints[currentBreakpoint] === breakpoints.lg && "424") ||
               (breakpoints[currentBreakpoint] === breakpoints.md && "673") ||
-              (breakpoints[currentBreakpoint] === breakpoints.sm && "480")
+              (breakpoints[currentBreakpoint] === breakpoints.sm && "480") ||
+              (breakpoints[currentBreakpoint] === breakpoints.xs && "300")
             }
             height={
               (breakpoints[currentBreakpoint] === breakpoints.xl && "320") ||
               (breakpoints[currentBreakpoint] === breakpoints.lg && "235") ||
               (breakpoints[currentBreakpoint] === breakpoints.md && "380") ||
-              (breakpoints[currentBreakpoint] === breakpoints.sm && "270")
+              (breakpoints[currentBreakpoint] === breakpoints.sm && "270") ||
+              (breakpoints[currentBreakpoint] === breakpoints.xs && "170")
             }
             frameBorder="0"
             allowFullScreen
@@ -128,7 +130,7 @@ class App extends React.Component {
   render_locationList = () => {
     return (
       <div className="locationWrapper">
-        <h4>Locations include:</h4>
+        <h4>Locations include</h4>
         <ul className="locations">
           {_.map(this.state.data.locations, location => {
             return <li key={location}>{location}</li>;
@@ -295,7 +297,7 @@ class App extends React.Component {
               <div className="quote">
                 <div className="textWrapper">
                   <span className="quoteMarks">&#10077;</span>
-                  <p className="text">{this.state.data.quote.text}</p>
+                  <p className="text">{this.state.data.quote.text}.</p>
                   <span className="quoteMarks">&#10078;</span>
                 </div>
                 <p className="author">
